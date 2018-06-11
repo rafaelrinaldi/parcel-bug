@@ -1,0 +1,71 @@
+❯ npm start
+
+> @ start /Users/1528738594361/dev/parcel-bug
+> parcel index.html
+
+Server running at http://localhost:1234
+⏳  Building hmr-runtime.js...
+
+<--- Last few GCs --->
+
+[19406:0x104800600]   181623 ms: Mark-sweep 1339.9 (1442.0) -> 1327.3 (1442.5) MB, 2371.3 / 1.7 ms  (average mu = 0.170, current mu = 0.076) allocation failure scavenge might not succeed
+[19406:0x104800600]   183994 ms: Mark-sweep 1341.1 (1442.5) -> 1328.8 (1445.0) MB, 2300.0 / 1.7 ms  (average mu = 0.108, current mu = 0.030) allocation failure scavenge might not succeed
+
+
+<--- JS stacktrace --->
+
+==== JS stack trace =========================================
+
+Security context: 0x3619cff9e589 <JSObject>
+    0: builtin exit frame: new Date(aka Date)(this=0x36195e482321 <the_hole>,0x3619295e3e79 <Number 1.52865e+12>,0x36195e482321 <the_hole>)
+
+    1: ConstructFrame [pc: 0xf6a8900ee5d]
+    2: oncomplete [0x3619d033ddc9] [fs.js:~183] [pc=0xf6a890e9eeb](this=0x361949a9a2d9 <FSReqWrap map = 0x36199b1eecb1>,err=0x36195e482201 <null>,stats=0x3619c18066e9 <Float64Array map = 0x3619f88052d1>)
+    3: Inte...
+
+FATAL ERROR: Ineffective mark-compacts near heap limit Allocation failed - JavaScript heap out of memory
+ 1: node::Abort() [/usr/local/bin/node]
+ 2: node::OnFatalError(char const*, char const*) [/usr/local/bin/node]
+ 3: v8::Utils::ReportOOMFailure(v8::internal::Isolate*, char const*, bool) [/usr/local/bin/node]
+ 4: v8::internal::V8::FatalProcessOutOfMemory(v8::internal::Isolate*, char const*, bool) [/usr/local/bin/node]
+ 5: v8::internal::Heap::UpdateSurvivalStatistics(int) [/usr/local/bin/node]
+ 6: v8::internal::Heap::CheckIneffectiveMarkCompact(unsigned long, double) [/usr/local/bin/node]
+ 7: v8::internal::Heap::PerformGarbageCollection(v8::internal::GarbageCollector, v8::GCCallbackFlags) [/usr/local/bin/node]
+ 8: v8::internal::Heap::CollectGarbage(v8::internal::AllocationSpace, v8::internal::GarbageCollectionReason, v8::GCCallbackFlags) [/usr/local/bin/node]
+ 9: v8::internal::Heap::AllocateRawWithRetry(int, v8::internal::AllocationSpace, v8::internal::AllocationAlignment) [/usr/local/bin/node]
+10: v8::internal::Factory::AllocateRawWithAllocationSite(v8::internal::Handle<v8::internal::Map>, v8::internal::PretenureFlag, v8::internal::Handle<v8::internal::AllocationSite>) [/usr/local/bin/node]
+11: v8::internal::Factory::NewJSObjectFromMap(v8::internal::Handle<v8::internal::Map>, v8::internal::PretenureFlag, v8::internal::Handle<v8::internal::AllocationSite>) [/usr/local/bin/node]
+12: v8::internal::JSObject::New(v8::internal::Handle<v8::internal::JSFunction>, v8::internal::Handle<v8::internal::JSReceiver>, v8::internal::Handle<v8::internal::AllocationSite>) [/usr/local/bin/node]
+13: v8::internal::JSDate::New(v8::internal::Handle<v8::internal::JSFunction>, v8::internal::Handle<v8::internal::JSReceiver>, double) [/usr/local/bin/node]
+14: v8::internal::Builtin_Impl_DateConstructor(v8::internal::BuiltinArguments, v8::internal::Isolate*) [/usr/local/bin/node]
+15: 0xf6a89009efd
+16: 0xf6a8900ee5d
+fish: 'npm start' terminated by signal SIGABRT (Abort)
+/usr/local/Cellar/node/10.4.0/bin/node[19411]: ../src/node.cc:4012:void node::PlatformExit(): Assertion `(err) != (-1)' failed.
+ 1: /usr/local/Cellar/node/10.4.0/bin/node[19410]: ../src/node.cc:4012:void node::PlatformExit(): Assertion `(err) != (-1)' failed.
+ 1: node::Abort() [/usr/local/Cellar/node/10.4.0/bin/node]
+ 2: node::Abort() [/usr/local/Cellar/node/10.4.0/bin/node]/usr/local/Cellar/node/10.4.0/bin/node[19409]: ../src/node.cc:4012:void node::PlatformExit(): Assertion `(err) != (-1)' failed.
+
+ 2:  1: node::MakeCallback(v8::Isolate*, v8::Local<v8::Object>, char const*, int, v8::Local<v8::Value>*, node::async_context) [/usr/local/Cellar/node/10.4.0/bin/node]
+ 3: node::MakeCallback(v8::Isolate*, v8::Local<v8::Object>, char const*, int, v8::Local<v8::Value>*, node::async_context) [/usr/local/Cellar/node/10.4.0/bin/node]
+node::Abort() 3:  [/usr/local/Cellar/node/10.4.0/bin/node]
+ 2: node::MakeCallback(v8::Isolate*, v8::Local<v8::Object>, char const*, int, v8::Local<v8::Value>*, node::async_context)node::PlatformExit()node::PlatformExit() [/usr/local/Cellar/node/10.4.0/bin/node]
+ [/usr/local/Cellar/node/10.4.0/bin/node] [/usr/local/Cellar/node/10.4.0/bin/node] 3:
+
+ 4:  4: __cxa_finalize_ranges__cxa_finalize_ranges [/usr/lib/system/libsystem_c.dylib] [/usr/lib/system/libsystem_c.dylib]
+
+ 5:  5: /usr/local/Cellar/node/10.4.0/bin/node[19408]: ../src/node.cc:4012:void node::PlatformExit(): Assertion `(err) != (-1)' failed.
+exitexit [/usr/lib/system/libsystem_c.dylib] [/usr/lib/system/libsystem_c.dylib]
+
+ 6:  6:  1: startstartnode::PlatformExit() [/usr/local/Cellar/node/10.4.0/bin/node] [/usr/local/Cellar/node/10.4.0/bin/node] [/usr/local/Cellar/node/10.4.0/bin/node]
+
+
+ 4: node::Abort() [/usr/local/Cellar/node/10.4.0/bin/node]__cxa_finalize_ranges
+ [/usr/lib/system/libsystem_c.dylib] 2:
+ 5: exit [/usr/lib/system/libsystem_c.dylib]
+ 6: start [/usr/local/Cellar/node/10.4.0/bin/node]
+node::MakeCallback(v8::Isolate*, v8::Local<v8::Object>, char const*, int, v8::Local<v8::Value>*, node::async_context) [/usr/local/Cellar/node/10.4.0/bin/node]
+ 3: node::PlatformExit() [/usr/local/Cellar/node/10.4.0/bin/node]
+ 4: __cxa_finalize_ranges [/usr/lib/system/libsystem_c.dylib]
+ 5: exit [/usr/lib/system/libsystem_c.dylib]
+ 6: start [/usr/local/Cellar/node/10.4.0/bin/node]
